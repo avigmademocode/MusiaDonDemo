@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+}
+
+<h2>Songs QRS</h2>
+<div class="row">
+    <div class="col-md-2">
+        <input type="button" class="btn btn-primary" data-toggle="modal" href="#myModal" value="Create SongQRS">
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>SNo</th>
+                                <th>Name</th>
+                                <th>Picture</th>
+                                <th>Date User First Accessed</th>
+                                <th>Action</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Table cell</td>
+                                <td>Table cell</td>
+                                <td>Table cell</td>
+                                <td>
+                                    <i class="fa fa-edit " ng-click="edit()"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <i class="fa  fa-trash-o " ng-click="delete()"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Table cell</td>
+                                <td>Table cell</td>
+                                <td>Table cell</td>
+                                <td>
+                                    <i class="fa fa-edit "></i> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <i class="fa  fa-trash-o "></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Table cell</td>
+                                <td>Table cell</td>
+                                <td>Table cell</td>
+                                <td>
+                                    <i class="fa fa-edit "></i> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <i class="fa  fa-trash-o "></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form ng-submit="submitform()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Create Songs</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" placeholder="Please Enter Name" class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Upload File</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="file" class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Album Name</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" placeholder="Please Enter Album Name" class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Genres</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" placeholder="Please Enter Genres Name" class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>SongsQRS</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" placeholder="Please Enter SongsQRS Name" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" ng-click="Create()">Create</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

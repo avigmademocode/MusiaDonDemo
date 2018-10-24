@@ -1,0 +1,208 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+}
+<script src="~/AngularJs/Artist/jsArtistController.js"></script>
+<script src="~/AngularJs/Artist/jsArtistFactory.js"></script>
+
+
+<h2>Create Artist</h2>
+<div ng-controller="AddArtistController">
+    <div class="row">
+        <div class="col-md-2">
+            <input type="button" class="btn btn-primary" data-toggle="modal" href="#myModal" value="Create Artist">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form ng-submit="submitform()" name="form">
+                        @*<div id="choose">
+                            </div>*@
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="Artisttbl">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%">SNo</th>
+                                        <th hidden>Artist ID</th>
+                                        <th>Artist Name</th>
+                                        <th hidden>Release Date</th>
+                                        <th>Picture</th>
+                                        <th hidden>Genres Id</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Item in Artistlist">
+                                        <td><div ng-clok>{{ $index + 1 }}</div></td>
+                                        <td hidden>{{ Item.ArtistId }}</td>
+                                        <td><div ng-clok>{{ Item.ArtistName }}</div></td>
+                                        <td hidden><input type="date" ng-model="Item.strReleaseDate" style=" background-color: transparent;border: 0px solid;" disabled /></td>
+                                        <td><div ng-clok></div><img src="{{ Item.UploadFilePath}}" width="150px;" height="100px;" border="solid black 1px;" /></td>
+                                        <td hidden>{{ Item.GenresId}}</td>
+                                        <td style="width:10%">
+                                            <div ng-clok>
+                                                <a href="javascript:;"> <i class="fa fa-edit" ng-click="ShowArtistData(Item)" data-toggle="modal" href="#EditModal"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a href="javascript:;"> <i class="fa  fa-trash-o " ng-click="delete(Item.ArtistId)"></i></a>
+                                            </div>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form ng-submit="submitform()" onsubmit="return validateForm()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Create Artist</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-4">
+                                <label>Artist ID</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Artist ID" class="form-control" ng-model="ArtistId" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Artist Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Artist Name" class="form-control" ng-model="ArtistName" />
+                            </div>
+                        </div>
+                        <br />
+
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Upload Picture</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="file" class="form-control" name="fileupload" value="uf.ImageUpload" accept="mp3/*" onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
+                            </div>
+                        </div>
+                        @*<br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Release Date</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="date" class="form-control" ng-model="strReleaseDate" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Genres</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Genres Name" class="form-control" ng-model="GenresId" />
+                            </div>
+                        </div>
+                        <br />*@
+
+
+                    </div>
+                   
+
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Submit" data-dismiss="modal" ng-click="submitform()" />
+                        </div>
+                    </div>
+
+                
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade " id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form ng-submit="submitform1()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Edit Artist</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-4">
+                                <label>Artist ID</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Artist ID" class="form-control" ng-model="form.UpdateArtist.ArtistId" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Artist Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Artist Name" class="form-control" ng-model="form.UpdateArtist.Artist1Name" />
+                            </div>
+                        </div>
+                        <br />
+
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Upload File</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="file" class="form-control" ng-model="form.UpdateArtist.UploadFilePath" />
+                            </div>
+                        </div>
+                        <br />
+                        @*<div class="row">
+                            <div class="col-lg-4">
+                                <label>Release Date</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="date" class="form-control" ng-model="form.UpdateArtist.ReleaseDate" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Genres</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Genres Name" class="form-control" ng-model="form.UpdateArtist.GenresId" />
+                            </div>
+                        </div>
+                        <br />*@
+                    </div>
+                    
+
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Submit" data-dismiss="modal" ng-click="submitform1()" />
+                        </div>
+                    
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,341 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+}
+
+<script src="~/AngularJs/Songs/jsSongsController.js"></script>
+<script src="~/AngularJs/Songs/jsSongsFactory.js"></script>
+@*<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="../jquery.simplePagination.js"></script>
+    <link href="../simplePagination.css" rel="stylesheet" type="text/css" />
+
+
+
+    <style type="text/css">
+        table {
+            width: 40em;
+            margin: 2em auto;
+        }
+
+        thead {
+            background: #000;
+            color: #fff;
+        }
+
+        td {
+            width: 10em;
+            padding: 0.3em;
+        }
+
+        tbody {
+            background: #ccc;
+        }
+    </style>
+
+    <script>
+
+        function test(pageNumber) {
+
+            var page = "#page-id-" + pageNumber;
+            $('.select').hide()
+            $(page).show()
+
+        }
+
+    </script>*@
+
+
+<h2>Songs</h2>
+<div ng-controller="AddSongsController">
+    <div class="row">
+        <div class="col-md-2">
+            <input type="button" class="btn btn-primary" data-toggle="modal" href="#myModal" value="Create Songs" ng-click="resetForm()">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form ng-submit="submitform2(SongList)" name="form">
+                        @*<div id="choose">
+                            </div>*@
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="Songtbl">
+                                <thead>
+                                    <tr>
+                                        <th>SNo</th>
+                                        <th hidden>Song Id</th>
+                                        <th>Name</th>
+                                        <th hidden >Artist Name</th>
+                                        <th hidden>Album Name</th>
+                                        <th >Genres Name</th>
+                                        <th>Upload File</th>
+                                        <th>Total QRS</th>
+                                        <th>QRS Download</th>
+                                        <th>Distributed QR</th>
+                                        <th>Action</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Item in SongList">
+                                        <td><div ng-clok>{{ $index + 1 }}</div></td>
+                                        <td hidden>{{ Item.SongId }}</td>
+                                        <td><div ng-clok>{{ Item.SongName }}</div></td>
+                                        <td hidden><div ng-clok>{{ Item.ArtistName }}</div></td>
+                                        <td hidden><div ng-clok>{{ Item.AlbumName}}</div></td>
+                                        <td><div ng-clok>{{ Item.GenresName }}</div></td>
+                                        <td><div ng-clok>{{ Item.UploadFilePath}}</div></td>
+                                        <td><div ng-clok>{{ Item.TotalQRs}}</div></td>
+                                        <td><div ng-clok>{{ Item.QRsDownloaded}}</div></td>
+                                        <td><div ng-clok>{{ Item.DistributeQR}}</div></td>
+                                        <td style="width:10%">
+                                            <div ng-clok>
+                                                <a href="javascript:;"> <i class="fa fa-edit" ng-click="ShowSongData(Item)" data-toggle="modal" href="#EditModal"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a href="javascript:;"> <i class="fa  fa-trash-o " ng-click="delete(Item.SongId)"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form ng-submit="submitform()" name="form" onsubmit="return validateForm()" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Create Songs</h4>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-4">
+                                <label>Song Id</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Name" class="form-control" ng-model="SongId" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Name" name="SName" class="form-control" ng-model="SongName" required />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Upload File</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="file" class="form-control" name="fileupload"  onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Artist</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <angucomplete-alt id="ex1" required
+                                                  placeholder="Artist"
+                                                  pause="100"
+                                                  selected-object="selectedArtistTo"
+                                                  local-data="Artistlist"
+                                                  search-fields="ArtistName"
+                                                  title-field="ArtistName"
+                                                  minlength="1"
+                                                  initial-value=""
+                                                  match-class="highlight"
+                                                  input-class="form-control" ng-disabled="false" />
+
+                                @*<input type="text" placeholder="Please Enter Name" class="form-control" ng-model="ArtistId" />*@
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Album Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <angucomplete-alt id="ex2" required
+                                                  placeholder="Album"
+                                                  pause="100"
+                                                  selected-object="selectedAlbumTo"
+                                                  local-data="AlbumList"
+                                                  search-fields="AlbumName"
+                                                  title-field="AlbumName"
+                                                  minlength="1"
+                                                  initial-value="initialSAlbumValue"
+                                                  match-class="highlight"
+                                                  input-class="form-control" ng-disabled="true"  />
+                               
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Genres</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <angucomplete-alt id="ex3" required
+                                                  placeholder="Genres"
+                                                  pause="100"
+                                                  selected-object="selectedGenresTo"
+                                                  local-data="GenresList"
+                                                  search-fields="GenresName"
+                                                  title-field="GenresName"
+                                                  minlength="1"
+                                                  initial-value="initialSGenresValue"
+                                                  match-class="highlight"
+                                                  input-class="form-control" ng-disabled="true" />
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Submit" data-dismiss="modal" ng-click="submitform()"  />
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*Edit Song*@
+    <div class="modal fade " id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form ng-submit="submitform1()" name="form">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Edit Songs</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-4">
+                                <label>Song Id</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Name" class="form-control" ng-model="form.UpdateSong.SongId" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Name" class="form-control" ng-model="form.UpdateSong.Song1Name" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Upload File</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="file" class="form-control" ng-model="form.UpdateSong.UploadFilePath" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Artist</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <angucomplete-alt id="ex1" required
+                                                  placeholder="Artist"
+                                                  pause="100"
+                                                  selected-object="selectedArtistTo"
+                                                  local-data="Artistlist"
+                                                  search-fields="ArtistName"
+                                                  title-field="ArtistName"
+                                                  minlength="1"
+                                                  initial-value=""
+                                                  match-class="highlight"
+                                                  input-class="form-control" ng-disabled="false" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Album Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <angucomplete-alt id="ex2" required
+                                                  placeholder="Album"
+                                                  pause="100"
+                                                  selected-object="selectedAlbumTo"
+                                                  local-data="AlbumList"
+                                                  search-fields="AlbumName"
+                                                  title-field="AlbumName"
+                                                  minlength="1"
+                                                  initial-value="initialSAlbumValue"
+                                                  match-class="highlight"
+                                                  input-class="form-control" ng-disabled="true"  />
+                                
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Genres</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <angucomplete-alt id="ex3" required
+                                                  placeholder="Genres"
+                                                  pause="100"
+                                                  selected-object="selectedGenresTo"
+                                                  local-data="GenresList"
+                                                  search-fields="GenresName"
+                                                  title-field="GenresName"
+                                                  minlength="1"
+                                                  initial-value="initialSGenresValue"
+                                                  match-class="highlight"
+                                                  input-class="form-control" ng-disabled="true" />
+                               
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Submit" data-dismiss="modal"  ng-click="submitform1()" />
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@*<script language="javascript">
+        $(function () {
+            $('#choose').SongInfo({
+                items: 20,
+                itemsOnPage: 2,
+                cssStyle: 'light-theme',
+                onPageClick: function (pageNumber) { test(pageNumber) }
+            });
+        });
+    </script>*@
+
