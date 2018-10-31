@@ -45,7 +45,7 @@
                                         <td>
                                             <div ng-cloak>{{Item.AlbumName}}</div>
                                         </td>
-                                        <td> <div ng-cloak><input type="date" ng-model="Item.strReleaseDate " style=" background-color: transparent;border: 0px solid;" disabled /></div></td>
+                                        <td> <div ng-cloak><input type="date" ng-model="Item.strReleaseDate" style=" background-color: transparent;border: 0px solid;" disabled /></div></td>
                                         <td><div ng-clok></div><img src="{{ Item.UploadFilePath}}" width="150px;" height="100px;" border="solid black 1px;" /></td>
                                         <td><div ng-cloak>{{ Item.GenresName}}</div></td>
                                         <td><div ng-cloak>{{ Item.ArtistName}}</div></td>
@@ -117,6 +117,7 @@
                             <div class="col-lg-6">
                                 <input type="file" class="form-control" name="fileupload" value="uf.ImageUpload" accept="image/*" onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
                             </div>
+                            
                         </div>
                         <br />
                         <div class="row">
@@ -210,8 +211,9 @@
                                 <label>Upload File</label>
                             </div>
                             <div class="col-lg-6">
-                                <input type="file" class="form-control" ng-model="form.UpdateAlbum.UploadFilePath" />
+                                <input type="file" class="form-control" name="fileupload" value="uf.ImageUpload" accept="image/*" onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
                             </div>
+                            <div><label>{{form.UpdateAlbum.FileName}}</label></div>
                         </div>
                         <br />
                         <div class="row">

@@ -59,6 +59,7 @@
             ArtistId: SongArtistID,
             ArtistName: SongArtistName,
             UploadFilePath: $scope.UploadFilePath,
+            FileName: $scope.FileName,
             GenresId: SongGenresId,
             GenresName: SongGenresName,
             ReleaseDate: $scope.strReleaseDate ,
@@ -77,12 +78,13 @@
         if (bool) {
             jsAlbumFactory.AddNewAlbumData(data)
                 .then(function (response) {
-                   // debugger;
+                    debugger;
 
                     if (response.data.length != 0) {
                         alert('Request has been saved successfully.');
-                        $scope.GetAlbumList();
+                      
                         ResetData();
+                        $scope.GetAlbumList();
                     }
                 })
         }
@@ -104,7 +106,7 @@
         }
 
         //alert(JSON.stringify(obj));
-        jsAlbumFactory.AddNewAlbumData(obj)
+        jsAlbumFactory.DeleteAlbumsDetails(obj)
             .then(function (response) {
                // debugger;
 
@@ -139,7 +141,7 @@
         $scope.$broadcast('angucomplete-alt:changeInput', 'ex3', { GenresName: SGenresName, GenresId: SGenresId });
      
         
-        var dateOut = new Date(Item.strReleaseDate);
+        var dateOut = new Date();
         
         $scope.form.UpdateAlbum.ReleaseDate = dateOut;
 
@@ -160,13 +162,14 @@
             SongGenresName = $scope.selectedGenresTo.originalObject.GenresName ? $scope.selectedGenresTo.originalObject.GenresName : '';
         }
 
-        //debugger;
-        var Data = {
+        debugger;
+        var Data1 = {
             AlbumId: $scope.form.UpdateAlbum.AlbumId,
             AlbumName: $scope.form.UpdateAlbum.Album1Name,
             ArtistId: SongArtistID,
             ArtistName: SongArtistName,
             UploadFilePath: $scope.form.UpdateAlbum.UploadFilePath,
+            FileName: $scope.form.UpdateAlbum.FileName,
             GenresId: SongGenresId,
             GenresName: SongGenresName,
             ReleaseDate: $scope.form.UpdateAlbum.strReleaseDate,
@@ -174,16 +177,23 @@
             Type: 2,
 
         }
+        
+        var data = new FormData();
+        for (var i = 0; i < $scope.files.length; i++) {
+            data.append("files[" + i + "]", $scope.files[i])
+            data.append("AlbumData[" + i + "]", JSON.stringify(Data1))
+        }
 
-
-       // alert(JSON.stringify(Data));
-        jsAlbumFactory.AddNewAlbumData(Data)
+        //alert(JSON.stringify(Data));
+        jsAlbumFactory.AddNewAlbumData(data)
             .then(function (response) {
 
 
                 if (response.data.length != 0) {
                     alert('Request has been Updated successfully.');
+                    ResetData();
                     $scope.GetAlbumList();
+                  
                 }
             })
 

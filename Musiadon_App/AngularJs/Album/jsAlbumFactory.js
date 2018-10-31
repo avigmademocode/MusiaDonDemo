@@ -39,6 +39,10 @@
         //return $http.post('/ViewRequest/SaveFiles/', formData);
     }
 
+    dataFactory.DeleteAlbumsDetails = function (data) {
+        //debugger;
+        return $http.post('/Album/DeleteAlbumsDetails', data);
+    };
 
     return dataFactory;
 

@@ -43,6 +43,11 @@
         //return $http.post('/ViewRequest/SaveFiles/', formData);
     }
 
+    dataFactory.DeleteSongsDetails = function (data) {
+        //debugger;
+        return $http.post('/Songs/DeleteSongsDetails', data);
+    };
+
 
 
     return dataFactory;

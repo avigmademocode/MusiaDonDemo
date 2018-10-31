@@ -21,12 +21,12 @@ namespace Musiadon_App.Controllers
             return View();
         }
 
-        //public JsonResult AddArtistDetails(ArtistDTO artistDTO)
-        //{
+        public JsonResult DeleteArtistDetails(ArtistDTO artistDTO)
+        {
 
-        //    var AllStatus = ArtistData.AddArtist(artistDTO);
-        //    return new JsonResult { Data = AllStatus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //}
+            var AllStatus = ArtistData.AddArtist(artistDTO);
+            return new JsonResult { Data = AllStatus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
         public JsonResult GetArtistDetails(ArtistDTO artist)
         {

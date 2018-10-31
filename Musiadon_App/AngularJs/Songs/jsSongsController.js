@@ -1,4 +1,4 @@
-﻿HomeApp.controller('AddSongsController', ['$scope', '$window', '$location', 'jsSongsFactory', function ($scope, $window, $location, jsSongsFactory) {
+﻿HomeApp.controller('AddSongsController', ['$scope', '$rootScope', '$window', '$location', 'jsSongsFactory', function ($scope, $rootScope, $window, $location, jsSongsFactory) {
 
     var bool = true;
 
@@ -31,6 +31,7 @@
             SongId: $scope.SongId,
             SongName: $scope.SongName,
             UploadFilePath: $scope.UploadFilePath,
+            //FileName: $scope.FileName,
             AlbumId: SongAlbumId,
             TotalQRs: $scope.TotalQRs,
             QRsDownloaded: $scope.QRsDownloaded,
@@ -60,8 +61,14 @@
 
                     if (response.data.length != 0) {
                         alert('Request has been saved successfully.');
-                        ResetData();
+                        setTimeout(function () {
+                            $(function () {
+                                $('#Songtbl').DataTable();
+                            });
+                        }, 3000);
+                      
                         $scope.GetSongsList();
+                        ResetData();
                     }
                 });
         }
@@ -100,9 +107,10 @@
     $scope.enabledEdit = [];
 
     $scope.ShowSongData = function (Item) {
-        //debugger;
+        debugger;
         $scope.form.UpdateSong = Item;
         $scope.form.UpdateSong.Song1Name = Item.SongName;
+        $scope.form.UpdateSong.UploadFilePath = Item.UploadFilePath;
         var SArtistID = Item.ArtistId;
         var SGenresId = Item.GenresId;
         var SArtistName = Item.ArtistName;
@@ -116,21 +124,43 @@
         $scope.$broadcast('angucomplete-alt:changeInput', 'ex1', { ArtistName: SArtistName, ArtistId: SArtistID });
         $scope.$broadcast('angucomplete-alt:changeInput', 'ex3', { GenresName: SGenresName, GenresId: SGenresId });
     }
+    $scope.asdrs = function (Item) {
+        debugger;
+        console.log("Item", Item);
+        $rootScope.si = Item.SongId;
+        $rootScope.nm = Item.SongName;
+        $rootScope.pt = Item.UploadFilePath;
+
+        sessionStorage.setItem("SongId", Item.SongId);
+       sessionStorage.setItem("SongName", Item.SongName);
+
+
+sessionStorage.setItem("UploadFilePath", Item.UploadFilePath);
+
+        $window.location.href = '/SongsQRS/Index/' + Item.SongId ;
+    }
 
     $scope.delete = function (SongId) {
-        //debugger;
+        debugger;
 
         var obj = {
             SongId: SongId,
             CurrUserId: 1,
             Type: 3,
+      
 
         }
+    
         //$scope.SongList.splice(SongId,1)
         //alert(JSON.stringify(obj));
-        jsSongsFactory.AddSongsList(obj)
+        //var data = new FormData();
+        //for (var i = 0; i < $scope.files.length; i++) {
+        //    data.append("files[" + i + "]", $scope.files[i])
+        //    data.append("SongData[" + i + "]", JSON.stringify(obj))
+        //}
+        jsSongsFactory.DeleteSongsDetails(obj)
             .then(function (response) {
-                // debugger;
+                debugger;
 
                 if (response.data.length != 0) {
                     alert('Record has been Deleted .');
@@ -167,10 +197,11 @@
             SongGenresId = $scope.selectedGenresTo.originalObject.GenresId ? $scope.selectedGenresTo.originalObject.GenresId : '';
             SongGenresName = $scope.selectedGenresTo.originalObject.GenresName ? $scope.selectedGenresTo.originalObject.GenresName : '';
         }
-        var Data = {
+        var Data1 = {
             SongId: $scope.form.UpdateSong.SongId,
             SongName: $scope.form.UpdateSong.Song1Name,
             UploadFilePath: $scope.form.UpdateSong.UploadFilePath,
+            FileName: $scope.form.UpdateSong.FileName,
             TotalQRs: $scope.form.UpdateSong.TotalQRs,
             QRsDownloaded: $scope.form.UpdateSong.QRsDownloaded,
             DistributeQR: $scope.form.UpdateSong.DistributeQR,
@@ -186,15 +217,20 @@
         }
 
         //alert(JSON.stringify(Data));
-
-        jsSongsFactory.AddSongsList(Data)
+        var data = new FormData();
+        for (var i = 0; i < $scope.files.length; i++) {
+            data.append("files[" + i + "]", $scope.files[i])
+            data.append("SongData[" + i + "]", JSON.stringify(Data1))
+        }
+            jsSongsFactory.AddSongsList(data)
             .then(function (response) {
 
 
                 if (response.data.length != 0) {
                     alert('Request has been Updated successfully.');
-                    $scope.GetSongsList();
                     ResetData();
+                    $scope.GetSongsList();
+                   
 
                 }
             })
@@ -265,6 +301,7 @@
         $scope.SongId = '';
         $scope.SongName = '';
         $scope.UploadFilePath = '';
+        $scope.form.UpdateSong.UploadFilePath = '';
 
         $scope.$broadcast('angucomplete-alt:changeInput', 'ex1', { ArtistName: '', ArtistId: 0 });
         $scope.$broadcast('angucomplete-alt:changeInput', 'ex2', { AlbumName: '', AlbumId: 0 });

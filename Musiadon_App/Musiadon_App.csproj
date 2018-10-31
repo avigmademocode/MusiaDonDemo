@@ -110,6 +110,12 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="zxing, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.4\lib\net461\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.4\lib\net461\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Diagnostics.DiagnosticSource">
@@ -183,6 +189,7 @@
     <Content Include="AngularJs\Album\jsAlbumController.js" />
     <Content Include="AngularJs\Album\jsAlbumFactory.js" />
     <Content Include="AngularJs\angucomplete-alt.min.js" />
+    <Content Include="AngularJs\angular-qrcode.js" />
     <Content Include="AngularJs\angular.min.js" />
     <Content Include="AngularJs\Artist\jsArtistController.js" />
     <Content Include="AngularJs\Artist\jsArtistFactory.js" />
@@ -972,6 +979,8 @@
     <Content Include="Scripts\kendo\2012.3.1114\kendo.web.min.js" />
     <Content Include="Scripts\kendo\2012.3.1114\kendo.window.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\qrcode.min.js" />
+    <Content Include="Views\CreateAccount\mohitdemo.html" />
     <Content Include="Views\Users\paging.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -995,7 +1004,6 @@
     <Content Include="Views\Shared\_LeftMenuLayout.cshtml" />
     <Content Include="Views\Shared\_RightMenuLayout.cshtml" />
     <Content Include="Views\Songs\Index.cshtml" />
-    <Content Include="Views\SongsQRS\Index.cshtml" />
     <Content Include="Views\Album\Index.cshtml" />
     <Content Include="Views\Shared\_BlankLayout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -1024,6 +1032,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\Artist\Index.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\SongsQRS\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

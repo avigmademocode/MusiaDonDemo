@@ -13,6 +13,7 @@ namespace Musiadon.Models
         public String ArtistName { get; set; }
         public String GenresName { get; set; }
         public String UploadFilePath { get; set; }
+        public String FileName { get; set; }
         public String Sys_FileName { get; set; }
         public String Org_FileName { get; set; }
         public int? TotalQRs { get; set; }
@@ -31,6 +32,7 @@ namespace Musiadon.Models
         public Int64 SongId { get; set; }
         public String SongName { get; set; }
         public String UploadFilePath { get; set; }
+        public String FileName { get; set; }
         public String Sys_FileName { get; set; }
         public String Org_FileName { get; set; }
         public int TotalQRs { get; set; }
@@ -53,5 +55,6 @@ namespace Musiadon.Models
         public string GenresName { get; set; }
         public int GenresId { get; set; }
         public int Type { get; set; }
+        public Int64 CurrUserId { get; set; }
     }
 }

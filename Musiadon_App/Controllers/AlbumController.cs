@@ -28,12 +28,12 @@ namespace Musiadon_App.Controllers
             return new JsonResult { Data = AllStatus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        //public JsonResult AddNewAlbumData(AlbumsDTO albumsDTO)
-        //{
+        public JsonResult DeleteAlbumsDetails(AlbumsDTO albumsDTO)
+        {
 
-        //    var AllStatus = AlbumsData.AddAlbums(albumsDTO);
-        //    return new JsonResult { Data = AllStatus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //}
+            var AllStatus = AlbumsData.AddAlbums(albumsDTO);
+            return new JsonResult { Data = AllStatus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
         public JsonResult AddNewAlbumData(string[] AlbumData, HttpPostedFileBase files)
 
@@ -76,6 +76,13 @@ namespace Musiadon_App.Controllers
 
             DBAlbums DBAlbums = new DBAlbums();
             AlbumsDTO albumsDTO = new AlbumsDTO();
+
+
+            //Set the time zone information to US Mountain Standard Time 
+            var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("US Mountain Standard Time");
+            //Get date and time in US Mountain Standard Time 
+            var dateTime = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo);
+
             DBAlbums = AlData;
             albumsDTO.ArtistId = DBAlbums.ArtistId;
             albumsDTO.ArtistName = DBAlbums.ArtistName;
@@ -102,7 +109,8 @@ namespace Musiadon_App.Controllers
                     StrFileType = file.ContentType;
                     file.SaveAs(Path.Combine(Server.MapPath(strpath), fileName));
                     albumsDTO.UploadFilePath = strfilepath;
-
+                    albumsDTO.FileName = actualFileName;
+                    //albumsDTO.UploadFilePath = fileName;
                 }
             }
 

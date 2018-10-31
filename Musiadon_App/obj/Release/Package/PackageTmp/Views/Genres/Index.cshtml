@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+}
+<script src="~/AngularJs/Genres/jsGenresController.js"></script>
+<script src="~/AngularJs/Genres/jsGenresFactory.js"></script>
+
+<h2>Add Genres</h2>
+
+<div ng-controller="AddGenresController">
+    <div class="row">
+        <div class="col-md-2">
+            <input type="button" class="btn btn-primary" data-toggle="modal" href="#myModal" value="Create Genres">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form ng-submit="submitform()" name="form">
+                        @*<div id="choose">
+                            </div>*@
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="SongInfo">
+                                <thead>
+                                    <tr>
+                                        <th>SNo</th>
+                                        <th hidden>Genres ID</th>
+                                        <th>Genres Name</th>
+                                        @*<th>Release Date</th>
+                                            <th>Picture</th>
+                                            <th>Genres Id</th>*@
+                                        <th>Action</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Item in GenresList">
+                                        <td><div ng-clok>{{ $index + 1 }}</div></td>
+                                        <td hidden>{{ Item.GenresId }}</td>
+                                        <td><div ng-clok>{{ Item.GenresName }}</div></td>
+                                        @*@<td>{{ Item.ReleaseDate}}/></td>
+                                            <td>{{ Item.UploadFilePath}}</td>
+                                            <td>{{ Item.GenresId}}</td>*@
+                                        <td style="width:10%">
+                                            <div ng-clok>
+                                                <a href="javascript:;"> <i class="fa fa-edit" ng-click="ShowGenresData(Item)" data-toggle="modal" href="#EditModal"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a href="javascript:;"> <i class="fa  fa-trash-o " ng-click="delete(Item.GenresId)"></i></a>
+                                       </div>
+                                                </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form ng-submit="submitform()" onsubmit="return validateForm()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Create Genres</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-4">
+                                <label>Genres ID</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Genres ID" class="form-control" ng-model="GenresId" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Genres Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Genres Name" class="form-control" ng-model="GenresName" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <input type="button" class="btn btn-success" value="Submit" data-dismiss="modal" ng-click="submitform()">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade " id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form ng-submit="submitform()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Edit Genres</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-4">
+                                <label>Genres ID</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Genres ID" class="form-control" ng-model="form.UpdateGenres.GenresId" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Genres Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Genres Name" class="form-control" ng-model="form.UpdateGenres.Genres1Name" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <input type="button" class="btn btn-success" value="Submit" data-dismiss="modal" ng-click="submitform1()">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

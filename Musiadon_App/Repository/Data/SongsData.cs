@@ -25,6 +25,7 @@ namespace Musiadon.Repository.Data
                 input_parameters.Add("@SongId", 1 + "#bigint#" + songsDTO.SongId);
                 input_parameters.Add("@SongName", 1 + "#nvarchar#" + songsDTO.SongName);
                 input_parameters.Add("@UploadFilePath", 1 + "#nvarchar#" + songsDTO.UploadFilePath);
+                input_parameters.Add("@FileName", 1 + "#nvarchar#" + songsDTO.FileName);
                 input_parameters.Add("@Sys_FileName", 1 + "#nvarchar#" + songsDTO.Sys_FileName);
                 input_parameters.Add("@Org_FileName", 1 + "#nvarchar#" + songsDTO.Org_FileName);
                 input_parameters.Add("@TotalQRs", 1 + "#int#" + 0);
@@ -78,7 +79,8 @@ namespace Musiadon.Repository.Data
                      ArtistName = item.Field<String>("ArtistName"),
                      GenresName = item.Field<String>("GenresName"),
                      UploadFilePath = item.Field<String>("UploadFilePath"),
-                         Sys_FileName = item.Field<String>("Sys_FileName"),
+                     FileName = item.Field<String>("FileName"),
+                     Sys_FileName = item.Field<String>("Sys_FileName"),
                          Org_FileName = item.Field<String>("Org_FileName"),
                          TotalQRs =item.Field<int>("TotalQRs"),
                          QRsDownloaded = item.Field<int>("QRsDownloaded"),

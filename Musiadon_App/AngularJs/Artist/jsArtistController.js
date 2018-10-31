@@ -87,30 +87,36 @@
 
         $scope.submitform1 = function () {
             debugger;
-            var Data = {
+            var Data1 = {
                 ArtistId: $scope.form.UpdateArtist.ArtistId,
                 ArtistName: $scope.form.UpdateArtist.Artist1Name,
-                ReleaseDate: $scope.form.UpdateArtist.ReleaseDate,
+               // ReleaseDate: $scope.form.UpdateArtist.ReleaseDate,
                 UploadFilePath: $scope.form.UpdateArtist.UploadFilePath,
-                GenresId: $scope.form.UpdateArtist.GenresId,
+                //GenresId: $scope.form.UpdateArtist.GenresId,
 
                 Type: 2,
 
             }
-
-
-            //alert(JSON.stringify(Data));
-            jsArtistFactory.AddArtistDetails(Data)
+            var data = new FormData();
+            for (var i = 0; i < $scope.files.length; i++) {
+                data.append("files[" + i + "]", $scope.files[i])
+                data.append("strArtistData[" + i + "]", JSON.stringify(Data1))
+            }
+            jsArtistFactory.AddArtistDetails(data)
                 .then(function (response) {
 
 
                     if (response.data.length != 0) {
                         alert('Request has been Updated successfully.');
+                        ResetData();
                         $scope.GetArtistData();
+
+
                     }
                 })
+            }
 
-        }
+        
 
         // delete the record
         $scope.delete = function (ArtistId) {
@@ -124,7 +130,7 @@
             }
 
             //alert(JSON.stringify(obj));
-            jsArtistFactory.AddArtistDetails(obj)
+            jsArtistFactory.DeleteArtistDetails(obj)
                 .then(function (response) {
                     debugger;
 

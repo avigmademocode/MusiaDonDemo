@@ -4,130 +4,253 @@
     Layout = "~/Views/Shared/_AppLayout.cshtml";
 }
 
-<h2>Songs QRS</h2>
-<div class="row">
-    <div class="col-md-2">
-        <input type="button" class="btn btn-primary" data-toggle="modal" href="#myModal" value="Create SongQRS">
+<script src="~/AngularJs/SongsQRS/jsSongsQRSController.js"></script>
+<script src="~/AngularJs/SongsQRS/jsSongsQRSFactory.js"></script>
+
+<style>
+
+
+    h1 {
+        text-align: center;
+        text-shadow: 2px 2px 0px rgba(255,255,255,.7), 5px 7px 0px rgba(0, 0, 0, 0.1);
+        font-size: 50px;
+        margin-top: 40px;
+        color: #fff;
+    }
+</style>
+
+
+<div ng-controller="AddSongsQRSController">
+
+    <h2>Songs QRS</h2>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="button" class="btn btn-primary" data-toggle="modal" href="#myQRS" value="Create SongQRS">
+        </div>
     </div>
-</div>
-<br />
-<div class="row">
-    <div class="col-lg-12">
-        <section class="panel">
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>SNo</th>
-                                <th>Name</th>
-                                <th>Picture</th>
-                                <th>Date User First Accessed</th>
-                                <th>Action</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>
-                                    <i class="fa fa-edit " ng-click="edit()"></i> &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <i class="fa  fa-trash-o " ng-click="delete()"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>
-                                    <i class="fa fa-edit "></i> &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <i class="fa  fa-trash-o "></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>
-                                    <i class="fa fa-edit "></i> &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <i class="fa  fa-trash-o "></i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form ng-submit="submitform1()" name="form">
+                        @*<div id="choose">
+                            </div>*@
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="SongQRStbl">
+                                <thead>
+                                    <tr>
+                                        <th>SNo</th>
+                                        <th hidden>Song Id</th>
+                                        <th>Name</th>
+                                        <th>Picture</th>
+                                        <th>Date User First Accessed</th>
+                                        <th>Action</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="QRS in SongQRSList">
+                                        <td><div ng-clok>{{ $index + 1 }}</div></td>
+                                        <td hidden>{{ QRS.SongQRId }}</td>
+                                        <td><div ng-clok>{{ QRS.SongName }}</div></td>
+                                        <td><div ng-clok><img ng-src="http://chart.apis.google.com/chart?cht=qr&chl={{ QRS.QRCodeImagePath }}}&chs=186" width="150px" height="150px" /> </div></td>
+                                        <td><div ng-clok> {{ QRS.strUserFirstAccessed | date:'M/d/yyyy h:mm a'}}</div></td>
+                                        <td style="width:10%">
+                                            <div ng-clok>
+                                                <a href="javascript:;"> <i class="fa fa-edit" ng-click="ShowSongQRData(QRS)" data-toggle="modal" href="#EditModal"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a href="javascript:;"> <i class="fa  fa-trash-o " ng-click="delete(QRS.SongQRId)"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+
+                        </div>
+
+                    </form>
+
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
-</div>
 
-<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form ng-submit="submitform()">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Create Songs</h4>
+    <div class="modal fade " id="myQRS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form ng-submit="submitform2()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Create SongsQRS</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-3">
+                                <label>SongsId</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" ng-model="Song1Id" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Name" class="form-control" ng-model="Song1Name" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-3">
+                                <label>Size</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <select id="codeSize" class="form-control">
+                                    <option value="75">XSmall</option>
+                                    <option value="155">Small</option>
+                                    <option value="186" selected="selected">Medium</option>
+                                    <option value="248">Large</option>
+                                    <option value="300">XLarge</option>
+                                    <option value="450">XXLarge</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>SongQRS URL</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" onclick="myFunction()" id="codeData" name="codeData" size="50" placeholder="Enter a url or text" ng-model="Songurl" class="form-control" autocomplete="on" />
+                            </div>
+                            @*<div class="col-lg-3" style="margin-left:-20px;">
+                                    <button id="generate" class="btn btn-info">generate</button>
+                                </div>*@
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>User First Accessed</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="date" class="form-control" ng-model="strUserFirstAccessed" />
+                            </div>
+                        </div>
+                        @*<div class="row">
+                                <div class="col-lg-6 col-lg-offset-4">
+
+                                    <div id="image" ng-model="ImagePath"></div>
+                                </div>
+                                <div id="link" style="margin-top:10px; text-align:center"></div>
+
+                            </div>*@
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Submit" data-dismiss="modal" ng-click="submitform()" />
+                    </div>
+
                 </div>
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <label>Name</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" placeholder="Please Enter Name" class="form-control" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <label>Upload File</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="file" class="form-control" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <label>Album Name</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" placeholder="Please Enter Album Name" class="form-control" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <label>Genres</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" placeholder="Please Enter Genres Name" class="form-control" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <label>SongsQRS</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" placeholder="Please Enter SongsQRS Name" class="form-control" />
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                    <button class="btn btn-success" type="button" ng-click="Create()">Create</button>
-                </div>
-
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+
+    <div class="modal fade " id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form ng-submit="submitform()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Edit SongsQRS</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-3">
+                                <label>SongsId</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" ng-model="form.UpdateSongsQR.SongId" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Please Enter Name" class="form-control" ng-model="form.UpdateSongsQR.SongName" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" ng-hide="true">
+                            <div class="col-lg-3">
+                                <label>Size</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <select id="codeSize" class="form-control">
+                                    <option value="75">XSmall</option>
+                                    <option value="155">Small</option>
+                                    <option value="186" selected="selected">Medium</option>
+                                    <option value="248">Large</option>
+                                    <option value="300">XLarge</option>
+                                    <option value="450">XXLarge</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>SongQRS URL</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" onclick="myFunction()" id="codeData" name="codeData" size="50" placeholder="Enter a url or text" ng-model="form.UpdateSongsQR.QRCodeImagePath" class="form-control" autocomplete="on" />
+                            </div>
+                            @*<div class="col-lg-3" style="margin-left:-20px;">
+                                    <button id="generate" class="btn btn-info">generate</button>
+                                </div>*@
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>User First Accessed</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="date" class="form-control" ng-model="form.UpdateSongsQR.strUserFirstAccessed" />
+                            </div>
+                        </div>
+                        @*<div class="row">
+                                <div class="col-lg-6 col-lg-offset-4">
+
+                                    <div id="image" ng-model="ImagePath"></div>
+                                </div>
+                                <div id="link" style="margin-top:10px; text-align:center"></div>
+
+                            </div>*@
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Submit" data-dismiss="modal" ng-click="submitform()" />
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
 </div>
+
+
+
+

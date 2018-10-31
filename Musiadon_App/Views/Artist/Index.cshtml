@@ -97,7 +97,7 @@
                                 <label>Upload Picture</label>
                             </div>
                             <div class="col-lg-6">
-                                <input type="file" class="form-control" name="fileupload" value="uf.ImageUpload" accept="mp3/*" onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
+                                <input type="file" class="form-control" name="fileupload" value="uf.ImageUpload" accept="image/*" onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
                             </div>
                         </div>
                         @*<br />
@@ -168,7 +168,7 @@
                                 <label>Upload File</label>
                             </div>
                             <div class="col-lg-6">
-                                <input type="file" class="form-control" ng-model="form.UpdateArtist.UploadFilePath" />
+                                <input type="file" class="form-control" name="fileupload" value="uf.ImageUpload" accept="image/*" onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
                             </div>
                         </div>
                         <br />

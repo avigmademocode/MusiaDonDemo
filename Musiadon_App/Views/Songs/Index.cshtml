@@ -69,15 +69,15 @@
                                         <th>SNo</th>
                                         <th hidden>Song Id</th>
                                         <th>Name</th>
-                                        <th hidden >Artist Name</th>
+                                        <th hidden>Artist Name</th>
                                         <th hidden>Album Name</th>
-                                        <th >Genres Name</th>
+                                        <th>Genres Name</th>
                                         <th>Upload File</th>
                                         <th>Total QRS</th>
                                         <th>QRS Download</th>
                                         <th>Distributed QR</th>
                                         <th>Action</th>
-
+                                       
 
                                     </tr>
                                 </thead>
@@ -90,9 +90,13 @@
                                         <td hidden><div ng-clok>{{ Item.AlbumName}}</div></td>
                                         <td><div ng-clok>{{ Item.GenresName }}</div></td>
                                         <td><div ng-clok>{{ Item.UploadFilePath}}</div></td>
+                                        @*<td ><div ng-clok> <audio controls style="width:300px;"><source src="{{ Item.UploadFilePath}}" type="audio/mpeg"></audio></div></td>*@
+
                                         <td><div ng-clok>{{ Item.TotalQRs}}</div></td>
                                         <td><div ng-clok>{{ Item.QRsDownloaded}}</div></td>
-                                        <td><div ng-clok>{{ Item.DistributeQR}}</div></td>
+                                        <td><div ng-clok>
+    <a href="javascript:;"> <b ng-click="asdrs(Item)" >Create QRS</b></a></div>
+</td>
                                         <td style="width:10%">
                                             <div ng-clok>
                                                 <a href="javascript:;"> <i class="fa fa-edit" ng-click="ShowSongData(Item)" data-toggle="modal" href="#EditModal"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -142,7 +146,8 @@
                                 <label>Upload File</label>
                             </div>
                             <div class="col-lg-6">
-                                <input type="file" class="form-control" name="fileupload"  onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
+                                <input type="file" class="form-control" name="fileupload"  onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />                              
+                                @*<input type="file" class="form-control" ng-model="UploadFilePath" />*@
                             </div>
                         </div>
                         <br />
@@ -250,8 +255,10 @@
                                 <label>Upload File</label>
                             </div>
                             <div class="col-lg-6">
-                                <input type="file" class="form-control" ng-model="form.UpdateSong.UploadFilePath" />
+                                <input type="file" class="form-control"  name="fileupload" onchange="angular.element(this).scope().SelectFileforUpload(this.files)" required />
+                                @*<input type="file" class="form-control" ng-model="form.UpdateSong.UploadFilePath" />*@
                             </div>
+                            <div><label>{{form.UpdateSong.UploadFilePath}}</label></div>
                         </div>
                         <br />
                         <div class="row">

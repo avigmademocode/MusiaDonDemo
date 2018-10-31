@@ -3,10 +3,10 @@
 
     var dataFactory = {};
 
-    //dataFactory.AddArtistDetails = function (data) {
-    //    debugger;
-    //    return $http.post('/Artist/AddArtistDetails', data);
-    //};
+    dataFactory.DeleteArtistDetails = function (data) {
+        debugger;
+        return $http.post('/Artist/DeleteArtistDetails', data);
+    };
 
     dataFactory.GetArtistDetails = function (data) {
         //debugger;

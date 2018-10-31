@@ -16,6 +16,7 @@ namespace Musiadon.Models
 
         public DateTime? ReleaseDate { get; set; }
         public String UploadFilePath { get; set; }
+        public String FileName { get; set; }
         public String Sys_FileName { get; set; }
         public String Org_FileName { get; set; }
         public Boolean IsActive { get; set; }

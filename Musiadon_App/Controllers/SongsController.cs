@@ -25,12 +25,12 @@ namespace Musiadon_App.Controllers
             return View();
         }
 
-        //public JsonResult AddSongsList (SongsDTO songsDTO)
-        //{
+        public JsonResult DeleteSongsDetails(SongsDTO songsDTO)
+        {
 
-        //    var AllStatus = SongsData.AddSongs(songsDTO);
-        //    return new JsonResult { Data = AllStatus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //}
+            var AllStatus = SongsData.AddSongs(songsDTO);
+            return new JsonResult { Data = AllStatus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
         public JsonResult GetSongsList(SongsDTO songs)
         {
@@ -41,7 +41,9 @@ namespace Musiadon_App.Controllers
         public JsonResult AddSongsList(string[] SongData,  HttpPostedFileBase files)
        
         {
-            #region comment
+           
+           
+                #region comment
             /*
             string Message, fileName, actualFileName;
             Message = fileName = actualFileName = string.Empty;
@@ -89,6 +91,7 @@ namespace Musiadon_App.Controllers
                 songsDTO.SongName = DbsongsDTO.SongName;
                 songsDTO.AlbumName = DbsongsDTO.AlbumName;
                 songsDTO.Type = DbsongsDTO.Type;
+            songsDTO.CurrUserId = DbsongsDTO.CurrUserId;
             if (Request.Files != null)
                 {
                     for (int i = 0; i < Request.Files.Count; i++)
@@ -103,14 +106,15 @@ namespace Musiadon_App.Controllers
                         StrFileType = file.ContentType;
                         file.SaveAs(Path.Combine(Server.MapPath(strpath), fileName));
                         songsDTO.UploadFilePath = strfilepath;
-                        
-                    }
+                       // songsDTO.FileName = actualFileName;
+                       //songsDTO.UploadFilePath = fileName;
+                         
+
+                }
                 }
                     
             
             var AllStatus = SongsData.AddSongs(songsDTO);
- 
-                
            
             return new JsonResult { Data = AllStatus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

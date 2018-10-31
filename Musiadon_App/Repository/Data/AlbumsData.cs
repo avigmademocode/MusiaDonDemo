@@ -23,6 +23,7 @@ namespace Musiadon.Repository.Data
             input_parameters.Add("@AlbumName", 1 + "#nvarchar#" + albumsDTO.AlbumName);
             input_parameters.Add("@ReleaseDate", 1 + "#datetime#" + albumsDTO.ReleaseDate);
             input_parameters.Add("@UploadFilePath", 1 + "#nvarchar#" + albumsDTO.UploadFilePath);
+            input_parameters.Add("@FileName", 1 + "#nvarchar#" + albumsDTO.FileName);
             input_parameters.Add("@Sys_FileName", 1 + "#nvarchar#" + albumsDTO.Sys_FileName);
             input_parameters.Add("@Org_FileName", 1 + "#nvarchar#" + albumsDTO.Org_FileName);
             input_parameters.Add("@IsActive", 1 + "#bit#" + albumsDTO.IsActive);
@@ -66,6 +67,7 @@ namespace Musiadon.Repository.Data
                      ArtistName = item.Field<String>("ArtistName"),
                      GenresName = item.Field<String>("GenresName"),
                      strReleaseDate = item.Field<String>("ReleaseDate"),
+                     FileName = item.Field<String>("FileName"),
                      UploadFilePath = item.Field<String>("UploadFilePath"),
                      Sys_FileName = item.Field<String>("Sys_FileName"),
                      Org_FileName = item.Field<String>("Org_FileName"),
